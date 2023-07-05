@@ -31,14 +31,20 @@ stopButton.addEventListener('click', stopCount)
 pomodoroButton.addEventListener('click', () => {
     minutesDisplay.textContent = 25;
     secondsDisplay.textContent = '00';
+
+    stopCount()
 })
 breakButton.addEventListener('click', () => {
     minutesDisplay.textContent = '05';
     secondsDisplay.textContent = '00';
+
+    stopCount()
 })
 longBreakButton.addEventListener('click', () => {
     minutesDisplay.textContent = 15;
     secondsDisplay.textContent = '00';
+
+    stopCount()
 })
 
 
