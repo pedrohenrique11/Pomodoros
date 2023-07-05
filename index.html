@@ -9,12 +9,20 @@
 </head>
 <body>
 <main>
-    <span id="minutes">00</span>
-    <span>:</span>
-    <span id="seconds">05</span>
-    <h3 id="display"></h3>
-    <button id="startButton">start</button>
-    <button id="stopButton" class="hide">stop</button>
+    <div class="time__container">
+        <span id="minutes">25</span>
+        <span>:</span>
+        <span id="seconds">00</span>
+    </div>
+    <div class="controllers__container">
+        <button id="startButton">start</button>
+        <button id="stopButton" class="hide">stop</button>
+    </div>
+    <div>
+        <button id="pomodoroButton">Pomodoro</button>
+        <button id="breakButton">Break</button>
+        <button id="longBreakButton">Long Break</button>
+    </div>
 </main>
 <footer></footer>
 <script src="src/js/index.js"></script>
