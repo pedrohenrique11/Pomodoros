@@ -21,8 +21,8 @@ startButton.addEventListener('click', () => {
 
 // funçoes
 function resetDisplay() {
-    secondsDisplay.textContent = seconds < 10 ? '0' + minutes : minutes;
-    minutesDisplay.textContent = minutes < 10 ? '0' + seconds : seconds;
+    minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+    secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
 }
 
 function startCount(duration, seconds, minutes) {
@@ -31,19 +31,14 @@ function startCount(duration, seconds, minutes) {
         minutes = Math.floor(duration / 60);
         seconds = Math.floor(duration % 60);
 
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        secondsDisplay.textContent = seconds
-        minutesDisplay.textContent = minutes
+        secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
+        minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
 
         duration--;
         
         if(duration >= 0 ) {
             startCount(duration, seconds, minutes)
         }
-        if(duration < 0) {
-            resetDisplay()
-        }
+        else resetDisplay()
     }, 1000)
 }
