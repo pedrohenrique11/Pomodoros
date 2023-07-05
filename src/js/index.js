@@ -1,26 +1,40 @@
+// Variaveis
 const startButton = document.querySelector('#startButton')
 const stopButton = document.querySelector('#stopButton')
-const number = document.querySelector('h1')
+const secondsDisplay = document.querySelector('#seconds')
+const minutesDisplay = document.querySelector('#minutes')
 
-startButton.addEventListener('click', startCount)
+
+// Objetos
 
 
-function updateDisplay() {
-    number.textContent = 76
-}
+// Eventos
+startButton.addEventListener('click', () => {
+    const seconds = parseInt(secondsDisplay.textContent)
+    const minutes = parseInt(minutesDisplay.textContent)
+    let duration = (minutes * 60) + seconds;
 
-function startCount() {
-    const countDown = setTimeout( function() {
-        let seconds = Number(number.textContent)
+    startCount(duration, seconds, minutes)
+})
 
-        if(seconds > 0) {
-            seconds--
-    
-            number.textContent = seconds
-    
-            startCount()
+// funçoes
+
+function startCount(duration, seconds, minutes) {
+
+    let countDown = setTimeout( () => {
+        minutes = Math.floor(duration / 60);
+        seconds = Math.floor(duration % 60);
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        secondsDisplay.textContent = seconds
+        minutesDisplay.textContent = minutes
+
+        duration--;
+        
+        if(duration >= 0 ) {
+            startCount(duration, seconds, minutes)
         }
-        else  console.log('cabouu')
-    }, 1000
-    )
+    }, 1000)
 }
