@@ -3,6 +3,8 @@ const startButton = document.querySelector('#startButton')
 const stopButton = document.querySelector('#stopButton')
 const secondsDisplay = document.querySelector('#seconds')
 const minutesDisplay = document.querySelector('#minutes')
+const seconds = parseInt(secondsDisplay.textContent)
+const minutes = parseInt(minutesDisplay.textContent)
 
 
 // Objetos
@@ -18,6 +20,10 @@ startButton.addEventListener('click', () => {
 })
 
 // funçoes
+function resetDisplay() {
+    secondsDisplay.textContent = seconds < 10 ? '0' + minutes : minutes;
+    minutesDisplay.textContent = minutes < 10 ? '0' + seconds : seconds;
+}
 
 function startCount(duration, seconds, minutes) {
 
@@ -35,6 +41,9 @@ function startCount(duration, seconds, minutes) {
         
         if(duration >= 0 ) {
             startCount(duration, seconds, minutes)
+        }
+        if(duration < 0) {
+            resetDisplay()
         }
     }, 1000)
 }
