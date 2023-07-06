@@ -54,10 +54,11 @@ longBreakButton.addEventListener('click', () => {
 })
 soundOnButton.addEventListener('click', () => {
     oneNightInTokyo.play()
+    oneNightInTokyo.volume = 0.6;
     toggleSoundButtons()
 })
 soundOffButton.addEventListener('click', () => {
-    oneNightInTokyo.stop()
+    oneNightInTokyo.pause()
     toggleSoundButtons()
 })
 
