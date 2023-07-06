@@ -17,7 +17,7 @@ const seconds = parseInt(secondsDisplay.textContent)
 const minutes = parseInt(minutesDisplay.textContent)
 
 let countDown;
-
+let duration;
 
 startButton.addEventListener('click', () => {
     const seconds = parseInt(secondsDisplay.textContent)
@@ -54,12 +54,33 @@ longBreakButton.addEventListener('click', () => {
 })
 soundOnButton.addEventListener('click', () => {
     oneNightInTokyo.play()
-    oneNightInTokyo.volume = 0.6;
+    oneNightInTokyo.volume = 0.2;
     toggleSoundButtons()
 })
 soundOffButton.addEventListener('click', () => {
     oneNightInTokyo.pause()
     toggleSoundButtons()
+})
+addTimeButton.addEventListener('click',() => {
+    const minutes = parseInt(minutesDisplay.textContent);
+    const seconds = parseInt(secondsDisplay.textContent);
+    minutesDisplay.textContent = minutes + 1;
+    duration = (minutes + 1) * 60 + seconds;
+    clearTimeout(countDown)
+    startButton.classList.remove('hide')
+    stopButton.classList.add('hide')
+})
+removeTimeButton.addEventListener('click', () => {
+    const minutes = parseInt(minutesDisplay.textContent);
+    const seconds = parseInt(secondsDisplay.textContent);
+    if (minutes > 1) {
+        minutesDisplay.textContent = minutes - 1;
+        duration = (minutes - 1) * 60 + seconds;
+    } 
+    clearTimeout(countDown)
+    startButton.classList.remove('hide')
+    stopButton.classList.add('hide')
+
 })
 
 
