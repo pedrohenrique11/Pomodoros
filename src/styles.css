@@ -12,41 +12,72 @@
 body {
     height: 100vh;
 
+    color: #FFFFFF;
+
+    background-color: #222831;
+
     display: grid;
     place-items: center;
 
     font-family: "DM sans", sans-serif;
 }
-
-main {
-    margin-top: 4rem;
-    padding: 4.4rem 6.8rem 6.8rem;
+main{
+    text-align: center;
     width: min(48rem, 90%);
+
+}
+
+.main__container {
+    margin-top: 4rem;
+    padding: 4rem 4rem;
     text-align: center;
 
     border-radius: 0.6rem;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(57, 62, 70, 0.1);
 
-    background: #FFFFFF;
+}
+span {
+    font-size: 11rem;
 }
 
 button {
     border: none;
-    padding: 1.6rem;
+    padding: 1rem;
+    margin: 1rem .5rem 0rem 0rem;
 
     font-weight: 600;
+    font-family: 'Montserrat';
     
     border-radius: .4rem;
-
     cursor: pointer;
     transition: background .3s;
     
-    margin-top: 2rem;
+    color: #FFFFFF;
+    background-color:rgb(57, 62, 70, 0);
+}
+button:hover {
+    background-color: rgb(57, 62, 70, 0);
+}
+#startButton, #stopButton {
+    font-size: 2rem;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5rem;
 }
 
-span {
-    font-size: 8rem;
+#pomodoroButton {
+    background-color: #045757;
 }
+#pomodoroButton:hover {
+    background-color: #377575;
+}
+#breakButton, #longBreakButton {
+    background-color: #0C3C78;
+}
+#breakButton:hover, #longBreakButton:hover {
+    background-color: #1c58a2;
+}
+
 
 .hide {
     display:none;
