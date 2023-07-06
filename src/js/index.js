@@ -80,6 +80,8 @@ function startCount(duration, seconds, minutes) {
     }, 1000)
 }
 
+
+
 function toggleButtons(){
     startButton.classList.toggle('hide')
     stopButton.classList.toggle('hide')
