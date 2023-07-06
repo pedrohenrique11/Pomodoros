@@ -21,14 +21,25 @@ body {
 
     font-family: "DM sans", sans-serif;
 }
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: min(48rem, 90%);
+    height: 2rem;
+    padding: 3rem 0rem;
+
+    
+    border-bottom: 0.1rem solid rgb(57, 62, 70);
+}
 main{
     text-align: center;
     width: min(48rem, 90%);
-
 }
 
 .main__container {
-    margin-top: 4rem;
+    margin-top: -10rem;
     padding: 4rem 4rem;
     text-align: center;
 
@@ -36,6 +47,7 @@ main{
     background-color: rgb(57, 62, 70, 0.1);
 
 }
+
 span {
     font-size: 11rem;
 }
@@ -64,7 +76,6 @@ button:hover {
     margin: 1rem;
     border-radius: 5rem;
 }
-
 #pomodoroButton {
     background-color: #045757;
 }
@@ -77,8 +88,17 @@ button:hover {
 #breakButton:hover, #longBreakButton:hover {
     background-color: #1c58a2;
 }
-
-
+a {
+    margin-right: 1rem;
+}
 .hide {
     display:none;
+}
+@media(max-width: 435px) {
+    .main__container {
+        margin-top: -5rem;
+    }
+    span {
+        font-size: 8rem;
+    }
 }
