@@ -24,7 +24,7 @@ startButton.addEventListener('click', () => {
     const minutes = parseInt(minutesDisplay.textContent)
     let duration = (minutes * 60) + seconds;
 
-    startCount(duration, seconds, minutes)
+    startCount(duration)
     toggleButtons()
 })
 stopButton.addEventListener('click', stopCount)
@@ -95,11 +95,11 @@ function stopCount() {
     toggleButtons()
 }
 
-function startCount(duration, seconds, minutes) {
+function startCount(duration) {
 
     countDown = setTimeout( () => {
-        minutes = Math.floor(duration / 60);
-        seconds = Math.floor(duration % 60);
+        const minutes = Math.floor(duration / 60);
+        const seconds = Math.floor(duration % 60);
         
         secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
         minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
@@ -107,12 +107,14 @@ function startCount(duration, seconds, minutes) {
         duration--;
         
         if(duration >= 0 ) {
-            startCount(duration, seconds, minutes)
+            startCount(duration)
         }
         else {
             resetDisplay()
             toggleButtons()
         }
+        console.log(duration)
+
     }, 1000)
 }
 
