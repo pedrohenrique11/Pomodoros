@@ -1,128 +1,94 @@
-const startButton = document.querySelector('#startButton')
-const stopButton = document.querySelector('#stopButton')
-const pomodoroButton = document.querySelector('#pomodoroButton')
-const breakButton = document.querySelector('#breakButton')
-const longBreakButton = document.querySelector('#longBreakButton')
-const soundOnButton = document.querySelector('#soundOnButton')
-const soundOffButton = document.querySelector('#soundOffButton')
-const addTimeButton = document.querySelector('#addTimeButton')
-const removeTimeButton = document.querySelector('#removeTimeButton')
+const startButton = document.querySelector('#startButton');
+const stopButton = document.querySelector('#stopButton');
+const pomodoroButton = document.querySelector('#pomodoroButton');
+const breakButton = document.querySelector('#breakButton');
+const longBreakButton = document.querySelector('#longBreakButton');
+const soundOnButton = document.querySelector('#soundOnButton');
+const soundOffButton = document.querySelector('#soundOffButton');
+const addTimeButton = document.querySelector('#addTimeButton');
+const removeTimeButton = document.querySelector('#removeTimeButton');
 
-const oneNightInTokyo = new Audio('src/music/ONE NIGHT IN ＴＯＫＹＯ (320 kbps).mp3')
+const oneNightInTokyo = new Audio('src/music/ONE NIGHT IN ＴＯＫＹＯ (320 kbps).mp3');
 
-const secondsDisplay = document.querySelector('#seconds')
-const minutesDisplay = document.querySelector('#minutes')
-
-const seconds = parseInt(secondsDisplay.textContent)
-const minutes = parseInt(minutesDisplay.textContent)
+const secondsDisplay = document.querySelector('#seconds');
+const minutesDisplay = document.querySelector('#minutes');
 
 let countDown;
-let duration;
 
 startButton.addEventListener('click', () => {
-    const seconds = parseInt(secondsDisplay.textContent)
-    const minutes = parseInt(minutesDisplay.textContent)
+    const seconds = parseInt(secondsDisplay.textContent);
+    const minutes = parseInt(minutesDisplay.textContent);
     let duration = (minutes * 60) + seconds;
+    startCount(duration);
+    toggleButtons();
+});
 
-    startCount(duration)
-    toggleButtons()
-})
-stopButton.addEventListener('click', stopCount)
-pomodoroButton.addEventListener('click', () => {
-    minutesDisplay.textContent = 25;
-    secondsDisplay.textContent = '00';
-
-    clearTimeout(countDown)
-    startButton.classList.remove('hide')
-    stopButton.classList.add('hide')
-})
-breakButton.addEventListener('click', () => {
-    minutesDisplay.textContent = '05';
-    secondsDisplay.textContent = '00';
-    
-    clearTimeout(countDown)
-    startButton.classList.remove('hide')
-    stopButton.classList.add('hide')
-})
-longBreakButton.addEventListener('click', () => {
-    minutesDisplay.textContent = 15;
-    secondsDisplay.textContent = '00';
-
-    clearTimeout(countDown)
-    startButton.classList.remove('hide')
-    stopButton.classList.add('hide')
-})
+stopButton.addEventListener('click', stopCount);
+pomodoroButton.addEventListener('click', () => resetTimer(25, 0));
+breakButton.addEventListener('click', () => resetTimer(5, 0));
+longBreakButton.addEventListener('click', () => resetTimer(15, 0));
 soundOnButton.addEventListener('click', () => {
-    oneNightInTokyo.play()
+    oneNightInTokyo.play();
     oneNightInTokyo.volume = 0.2;
-    toggleSoundButtons()
-})
+    toggleSoundButtons();
+});
 soundOffButton.addEventListener('click', () => {
-    oneNightInTokyo.pause()
-    toggleSoundButtons()
-})
-addTimeButton.addEventListener('click',() => {
-    const minutes = parseInt(minutesDisplay.textContent);
-    const seconds = parseInt(secondsDisplay.textContent);
-    minutesDisplay.textContent = minutes + 1;
-    duration = (minutes + 1) * 60 + seconds;
-    clearTimeout(countDown)
-    startButton.classList.remove('hide')
-    stopButton.classList.add('hide')
-})
-removeTimeButton.addEventListener('click', () => {
-    const minutes = parseInt(minutesDisplay.textContent);
-    const seconds = parseInt(secondsDisplay.textContent);
-    if (minutes > 1) {
-        minutesDisplay.textContent = minutes - 1;
-        duration = (minutes - 1) * 60 + seconds;
-    } 
-    clearTimeout(countDown)
-    startButton.classList.remove('hide')
-    stopButton.classList.add('hide')
+    oneNightInTokyo.pause();
+    toggleSoundButtons();
+});
+addTimeButton.addEventListener('click', () => adjustTime(1));
+removeTimeButton.addEventListener('click', () => adjustTime(-1));
 
-})
-
-
-
-function resetDisplay() {
+function resetTimer(minutes, seconds) {
     minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
     secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
+    clearInterval(countDown);
+    toggleButtons();
+}
+
+function adjustTime(time) {
+    let minutes = parseInt(minutesDisplay.textContent) + time;
+    if (minutes < 1) return;
+    minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+    duration = minutes * 60 + parseInt(secondsDisplay.textContent);
+    clearInterval(countDown);
+    toggleButtons();
 }
 
 function stopCount() {
-    clearTimeout(countDown)
-    toggleButtons()
+    clearInterval(countDown);
+    toggleButtons();
 }
 
 function startCount(duration) {
+    let remainingTime = duration;
 
-    countDown = setTimeout( () => {
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        
+    const updateDisplay = () => {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = Math.floor(remainingTime % 60);
+
         secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
         minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
-        
-        duration--;
-        
-        if(duration >= 0 ) {
-            startCount(duration)
-        }
-        else {
-            resetDisplay()
-            toggleButtons()
-        }
-        console.log(duration)
 
-    }, 1000)
+        if (remainingTime > 0) {
+            remainingTime--;
+        } else {
+            clearInterval(countDown);
+            resetTimer(0, 0);
+        }
+    };
+
+    updateDisplay();
+
+    countDown = setInterval(updateDisplay, 1000);
 }
 
-function toggleButtons(){
-    startButton.classList.toggle('hide')
-    stopButton.classList.toggle('hide')
+function toggleButtons() {
+    startButton.classList.toggle('hide');
+    stopButton.classList.toggle('hide');
 }
+
 function toggleSoundButtons() {
-    soundOnButton.classList.toggle('hide')
-    soundOffButton.classList.toggle('hide')
+    soundOnButton.classList.toggle('hide');
+    soundOffButton.classList.toggle('hide');
 }
