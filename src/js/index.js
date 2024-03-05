@@ -43,7 +43,7 @@ function resetTimer(minutes, seconds) {
     minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
     secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
     clearInterval(countDown);
-    toggleButtons();
+    pauseButtons()
 }
 
 function adjustTime(time) {
@@ -64,11 +64,15 @@ function startCount(duration) {
     let remainingTime = duration;
 
     const updateDisplay = () => {
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = Math.floor(remainingTime % 60);
+        const minutesCalc = Math.floor(remainingTime / 60);
+        const secondsCalc = Math.floor(remainingTime % 60);
 
-        secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
-        minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+        const minutes = minutesCalc < 10 ? '0' + minutesCalc : minutesCalc;
+        const seconds = secondsCalc < 10 ? '0' + secondsCalc : secondsCalc;
+
+        minutesDisplay.textContent = minutes;
+        secondsDisplay.textContent = seconds;
+        document.title = `${minutes}:${seconds}`;
 
         if (remainingTime > 0) {
             remainingTime--;
@@ -86,6 +90,10 @@ function startCount(duration) {
 function toggleButtons() {
     startButton.classList.toggle('hide');
     stopButton.classList.toggle('hide');
+}
+function pauseButtons() {
+    startButton.classList.remove('hide');
+    stopButton.classList.add('hide');
 }
 
 function toggleSoundButtons() {
