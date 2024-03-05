@@ -39,9 +39,13 @@ soundOffButton.addEventListener('click', () => {
 addTimeButton.addEventListener('click', () => adjustTime(1));
 removeTimeButton.addEventListener('click', () => adjustTime(-1));
 
-function resetTimer(minutes, seconds) {
-    minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
-    secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
+function resetTimer(minutesCalc, secondsCalc) {
+    const minutes = minutesCalc < 10 ? '0' + minutesCalc : minutesCalc;
+    const seconds = secondsCalc < 10 ? '0' + secondsCalc : secondsCalc;
+
+    minutesDisplay.textContent = minutes;
+    secondsDisplay.textContent = seconds;
+    document.title = `${minutes}:${seconds}`;
     clearInterval(countDown);
     pauseButtons()
 }
@@ -52,7 +56,7 @@ function adjustTime(time) {
     minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
     duration = minutes * 60 + parseInt(secondsDisplay.textContent);
     clearInterval(countDown);
-    toggleButtons();
+    pauseButtons();
 }
 
 function stopCount() {
