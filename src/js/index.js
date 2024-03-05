@@ -9,6 +9,7 @@ const addTimeButton = document.querySelector('#addTimeButton');
 const removeTimeButton = document.querySelector('#removeTimeButton');
 
 const oneNightInTokyo = new Audio('src/music/ONE NIGHT IN ＴＯＫＹＯ (320 kbps).mp3');
+const alarm = new Audio('src/music/jingle.mp3');
 
 const secondsDisplay = document.querySelector('#seconds');
 const minutesDisplay = document.querySelector('#minutes');
@@ -46,6 +47,7 @@ function resetTimer(minutesCalc, secondsCalc) {
     minutesDisplay.textContent = minutes;
     secondsDisplay.textContent = seconds;
     document.title = `${minutes}:${seconds}`;
+
     clearInterval(countDown);
     pauseButtons()
 }
@@ -79,10 +81,12 @@ function startCount(duration) {
         document.title = `${minutes}:${seconds}`;
 
         if (remainingTime > 0) {
-            remainingTime--;
+            remainingTime--;alarm
         } else {
             clearInterval(countDown);
+            document.title = `${minutes}:${seconds} Timer end!`;
             resetTimer(0, 0);
+            alarm.play()
         }
     };
 
@@ -94,6 +98,7 @@ function startCount(duration) {
 function toggleButtons() {
     startButton.classList.toggle('hide');
     stopButton.classList.toggle('hide');
+
 }
 function pauseButtons() {
     startButton.classList.remove('hide');
